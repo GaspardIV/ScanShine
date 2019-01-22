@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ScanShine</string>
+    <string name="loading">loading…</string>
+    <string name="cam_preview">preview</string>
+    <string name="fab_trans_name">fab_trans</string>
+    <string name="effect">Adjustment</string>
+    <string name="sure">Are you sure?</string>
+    <string name="sure_sure">Are you sure you want to abandon this scan?</string>
+    <string name="oneMoreTime">Let\'s try again!</string>
+    <string name="holdStillForAMoment">hold still</string>
+    <string name="document_size">Document size</string>
+    <string name="rotate">rotate</string>
+    <string name="share_enabled">share_enabled</string>
+
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shapeColor">#cce55707</color>
+    <color name="primaryColor">#ffce0f</color>
+    <color name="primaryLightColor">#fbe201</color>
+    <color name="primaryLightColorTrans">#ddFDB813</color>
+    <color name="primaryDarkColor">#FDB813</color>
+    <color name="black_semi_transparent">#AA000000</color>
+    <color name="white">#ffffff</color>
+
+</resources>
