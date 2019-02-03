@@ -29,6 +29,7 @@ import com.gaspard.scanshine.views.CameraView;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,9 +80,12 @@ public class CameraActivity extends AppCompatActivity implements Camera.PictureC
                 mPreview.setDetectingPaperSheet(false);
                 startRotatingCaptureFab();
                 Camera.Parameters parameters = mCamera.getParameters();
-                setUpFocus(parameters);
-                mCamera.setParameters(parameters);
-                mCamera.autoFocus(this);
+                if (setUpFocus(parameters)) {
+                    mCamera.setParameters(parameters);
+                    mCamera.autoFocus(this);
+                } else {
+                    mCamera.takePicture(null, null, this);
+                }
             }
         } catch (Exception ignored) {
 //            Log.e(getString(R.string.app_name), "failed to capture photo");
@@ -179,16 +183,23 @@ public class CameraActivity extends AppCompatActivity implements Camera.PictureC
         this.findViewById(R.id.torch_button).setBackground(ContextCompat.getDrawable(this, R.drawable.half_trans_button));
     }
 
-    private void setUpFocus(Camera.Parameters parameters) {
-        Rect rArea = getBoundingBox(mPreview.getSheetXCoords(), mPreview.getSheetYCoords());
-        rArea = convert(rArea, mPreview.getPreviewFrameWidth(), mPreview.getPreviewFrameHeight());
-        Camera.Area area = new Camera.Area(rArea, 1000);
-        if (parameters.getMaxNumFocusAreas() > 0) {
-            parameters.setFocusAreas(Collections.singletonList(area));
-        }
+    private boolean setUpFocus(Camera.Parameters parameters) {
+        List<String> focusModes = parameters.getSupportedFocusModes();
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
 
-        if (parameters.getMaxNumMeteringAreas() > 0) {
-            parameters.setMeteringAreas(Collections.singletonList(area));
+            Rect rArea = getBoundingBox(mPreview.getSheetXCoords(), mPreview.getSheetYCoords());
+            rArea = convert(rArea, mPreview.getPreviewFrameWidth(), mPreview.getPreviewFrameHeight());
+            Camera.Area area = new Camera.Area(rArea, 1000);
+            if (parameters.getMaxNumFocusAreas() > 0) {
+                parameters.setFocusAreas(Collections.singletonList(area));
+            }
+
+            if (parameters.getMaxNumMeteringAreas() > 0) {
+                parameters.setMeteringAreas(Collections.singletonList(area));
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
