@@ -228,6 +228,7 @@ Java_com_gaspard_scanshine_views_CameraView_decode(JNIEnv *env, jclass type,
         cv::cvtColor(yuv, mImage, CV_YUV2BGR_NV21);
 //        cvtColor(yuv, mImage, CV_YUV2RGBA_NV21/*COLOR_YUV420sp2RGBA*/);
 
+        // TODO DEBUG SIGSEGV IN SOME DEVICES HERE
         int rows = mImage.rows, cols = mImage.cols;
         double ratio = resize_fit_height(mImage, RESIZE_HEIGHT);
         std::vector<std::vector<Point> > squares;
