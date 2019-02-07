@@ -3,4 +3,4 @@ ScanShine - quickly take shining scans of your documents by using only your andr
 
 ## Demo:
 
-![](yakao.gif)
+![](demo/yakao.gif)
